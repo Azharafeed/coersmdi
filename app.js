@@ -4,11 +4,25 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const expressLayouts = require('express-ejs-layouts')
+const db = require('./config/mongoose');
+const session = require('express-session');
+const passport = require('passport');
+const passportLocal = require('./config/passport-local-strategy');
+const MongoStore = require("connect-mongo");
+const sassMiddleware = require('node-sass-middleware')
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+
+
 
 var app = express();
+
+app.use(sassMiddleware({
+  src: './public/scss',
+  dest: './public/stylesheets',
+  debug: true,
+  outputStyle: 'extended',
+  prefix:'/stylesheets'
+}))
 //express ejs layouts
 app.use(expressLayouts)
 // view engine setup
@@ -20,6 +34,32 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(session({
+  name:"codeil",
+  secret: "blablabla",
+  saveUninitialized:false,
+  resave:false,
+  cookie:{
+    maxAge:(1000*60*100)
+  },
+  store: MongoStore.create(
+    {
+    mongoUrl: 'mongodb://127.0.0.1:27017/codemeia121',
+    autoRemove:'disable'
+  },
+  function(err){
+    console.log(err || 'connect-mongodb setup ok');
+  }
+  )
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(passport.setAuthenticatedUser);
+
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

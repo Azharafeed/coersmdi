@@ -1,1 +1,9 @@
-<h1>profile</h1>
+<link rel="stylesheet" href="/stylesheets/user_profile.css">
+<h1>
+    Codeial / Profile Page
+</h1>
+<% if (typeof user !== 'undefined') { %>
+<p><%= user.name %></p>
+<p><%= user.email %></p>
+
+<% } %>
