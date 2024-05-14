@@ -3,7 +3,7 @@ var router = express.Router();
 const passport = require('passport')
 const usersControler = require('../controlers/users_controler')
 /* GET users listing. */
-router.get('/profile', usersControler.profile);
+router.get('/profile',passport.checkAuthentication,usersControler.profile);
 router.get('/signup', usersControler.signup);
 router.get('/signin', usersControler.signin);
 
@@ -13,7 +13,7 @@ router.post('/createSession', passport.authenticate(
   {failureRedirect:'/users/signin'},
 ),usersControler.createSession);
 
-router.get('/signout',usersControler.destroySession)
+router.get('/sign-out',usersControler.destroySession)
 module.exports = router;
 
 module.exports = router;

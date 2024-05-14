@@ -47,11 +47,12 @@ module.exports.createSession = async function(req,res){
   return res.redirect('/users/profile');
 }
 module.exports.destroySession = function(req, res) {
-   req.logout(function(err) {
-       if (err) {
-           // Handle error if any
-           console.error(err);
-       }
-       return res.redirect('/');
-   });
-}
+    req.logout(function(err) {
+        if (err) {
+            // Handle error if any
+            console.error(err);
+        }
+        // Redirect to the 'index' page
+        return res.redirect('/');
+    });
+};
