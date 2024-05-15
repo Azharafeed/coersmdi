@@ -11,4 +11,16 @@
 
 <% } %>
 
+<!-- this is to displayh the posts  -->
+
+<div id="post-list-container">
+    <ul>
+        <% for(post of posts){ %> 
+        <li><%= post.content %></li>  
+        
+         
+          <% } %>
+    </ul>
+</div>
+
 
