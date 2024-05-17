@@ -5,5 +5,6 @@ const homeControler = require('../controlers/home_controler')
 router.get('/',homeControler.home);
 router.use('/users',require('./users'));
 router.use('/posts',require('./posts'));
+router.use('/comments',require('./comment'));
 
 module.exports = router;
