@@ -8,19 +8,21 @@
         <input type="submit" value="post">
     </form>
 </section>
+<div id="post-list-container">
+ 
+         <% for(post of posts){ %> 
+         <h1><b><i><%= post.content %></i></b></h1>
+         <small><i><%= post.user.name %></i></small>
+         <hr>
+        
+          <% } %>
+   
+</div>
+
 
 <% } %>
 
 <!-- this is to displayh the posts  -->
 
-<div id="post-list-container">
-    <ul>
-        <% for(post of posts){ %> 
-        <li><%= post.content %></li>  
-        
-         
-          <% } %>
-    </ul>
-</div>
 
 

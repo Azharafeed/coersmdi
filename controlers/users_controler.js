@@ -4,6 +4,7 @@ const User = require('../model/user')
 const bcrypt = require('bcrypt');
 
 module.exports.profile = function(req,res){
+    
     return res.render('profile')
 }
 module.exports.signup = function(req,res){

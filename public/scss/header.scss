@@ -3,8 +3,8 @@
         display: flex;
         justify-content: space-between;
         padding: 0 10px;
-        background: #2196f3;
-        color: white;
+        background: #ff0000;
+        color: rgb(244, 244, 244);
         box-shadow: 1px 1px 1px 1px lightgrey;
 
         .mini-logo{
@@ -12,6 +12,7 @@
                 margin: 5px;
                 font-size: 1.4rem;
                 font-weight: bold;
+              
             }
         }
 
@@ -28,7 +29,7 @@
         }
 
         a{
-            color: white;
+            color: rgb(255, 255, 255);
             text-decoration: none;
         }
 
