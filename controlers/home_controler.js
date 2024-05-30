@@ -1,27 +1,30 @@
-
 const Post = require('../model/post');
 const User = require('../model/user');
-const Comment = require('../model/comment')
-
 
 module.exports.home = async function(req, res) {
     try {
+        // Fetch posts and populate user and comments with users
         const posts = await Post.find({})
-        .populate('user')
-        .populate({
-            path:'comments',
-            populate:{
-                path:'user'
-            }
-        })
-        .exec();
-        return res.render('index', {
-            posts: posts
-            
-        });
+            .populate('user')
+            .populate({
+                path: 'comments',
+                populate: {
+                    path: 'user'
+                }
+            })
+            .exec();
 
-    } catch (error) {
-        console.error(error);
-        return res.status(500).json({ message: 'An error occurred while fetching posts' });
+        // Fetch all users
+        const users = await User.find({}).exec();
+
+        // Render the home page with the fetched data
+        return res.render('index', {
+            title: "Codeial | Home",
+            posts: posts,
+            all_users: users
+        });
+    } catch (err) {
+        console.error("Error fetching data:", err);
+        return res.status(500).send("Internal Server Error");
     }
 }

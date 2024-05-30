@@ -3,10 +3,25 @@ const User = require('../model/user')
 
 const bcrypt = require('bcrypt');
 
-module.exports.profile = function(req,res){
-    
-    return res.render('profile')
+
+module.exports.profile = async function(req, res) {
+    try {
+        // Find user by ID
+        const user = await User.findById(req.params.id).exec();
+
+        // Render the user profile page with the fetched user data
+        return res.render('profile', {
+            title: 'User Profile',
+            profile_user: user
+        });
+    } catch (err) {
+        console.error("Error fetching user:", err);
+        return res.status(500).send("Internal Server Error");
+    }
 }
+
+
+
 module.exports.signup = function(req,res){
     if (req.isAuthenticated()) {
         return res.redirect('/users/profile');
